@@ -54,7 +54,9 @@ jobs:
 
       - name: Update workflow version
         if: ${{ steps.needs_update.outputs.NEEDS_UPDATE == 'yes' }}
-        run: cat "$GITHUB_WORKSPACE/workflows/workflows/build_and_deploy.yml" > "$GITHUB_WORKSPACE/project/.github/workflows/build_and_deploy.yml"
+        run: cat "$GITHUB_WORKSPACE/workflows/workflows/${{ env.projectWorkflow }}.yml" > "$GITHUB_WORKSPACE/project/.github/workflows/${{ env.projectWorkflow }}.yml"
+
+
 
       - name: Open PR with changes
         uses: peter-evans/create-pull-request@v3
@@ -67,5 +69,5 @@ jobs:
           delete-branch: true
           base: ${{ env.projectBranch }}
           title: "Update Build & Deploy workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
-          body: "This PR was automatically triggered due to [a change in the base Build & Deploy workflow](${{ steps.version_diff.outputs.VERSION_DIFF }})"
+          body: "This PR was automatically triggered due to [a change in the base `${{ env.projectWorkflow }}` workflow](${{ steps.version_diff.outputs.VERSION_DIFF }})"
           reviewers: ${{ env.reviewers }}
