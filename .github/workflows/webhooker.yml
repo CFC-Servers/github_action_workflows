@@ -71,7 +71,6 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           path: project
-          repository: ${{ env.projectUrl }}
           commit-message: "Update Build & Deploy workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
           branch: update-build-and-deploy-workflow
           delete-branch: true
