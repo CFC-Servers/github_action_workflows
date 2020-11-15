@@ -18,8 +18,8 @@ jobs:
       - name: Get the workflow version
         id: workflow_versions
         run: |
-          echo ::set-output name=VERSION::$(echo git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`)
-          echo ::set-output name=PREVIOUS_VERSION::$(echo git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)
+          echo ::set-output name=VERSION::$(git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`)
+          echo ::set-output name=PREVIOUS_VERSION::$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)
 
       - name: Get version diff link
         env:
