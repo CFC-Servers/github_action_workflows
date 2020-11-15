@@ -18,8 +18,10 @@ jobs:
       - name: Get the workflow version
         id: workflow_versions
         run: |
+          cd "$GITHUB_WORKSPACE/workflows/"
           echo ::set-output name=VERSION::$(git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`)
           echo ::set-output name=PREVIOUS_VERSION::$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)
+          cd -
 
       - name: Get version diff link
         env:
