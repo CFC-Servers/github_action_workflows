@@ -13,17 +13,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: workflows
+          fetch-depth: 0
 
       - name: Get the workflow version
         id: workflow_versions
         run: |
-          echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+          echo ::set-output name=VERSION::$(echo "$GITHUB_REF" | cut -d / -f 3)
           echo ::set-output name=PREVIOUS_VERSION::$(echo git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)
 
       - name: Get version diff link
         env:
           PROJECT_URL: ${{ github.server_url }}/${{ github.repository }}/compare/${{ steps.workflow_versions.outputs.PREVIOUS_VERSION }}..${{ steps.workflow_versions.outputs.VERSION }}
-        run: echo ::set-output name=VERSION_DIFF::$(echo $PROJECT_URL )
+        run: echo ::set-output name=VERSION_DIFF::$(echo "$PROJECT_URL")
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -33,7 +34,7 @@ jobs:
           path: project
 
       - name: Update workflow version
-        run: cat $GITHUB_WORKSPACE/workflows/workflows/build_and_deploy > $GITHUB_WORKSPACE/project/.github/workflows/build_and_deploy.yml
+        run: cat "$GITHUB_WORKSPACE/workflows/workflows/build_and_deploy.yml" > "$GITHUB_WORKSPACE/project/.github/workflows/build_and_deploy.yml"
 
       - name: Open PR with changes
         uses: peter-evans/create-pull-request@v3
