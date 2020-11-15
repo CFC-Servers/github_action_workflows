@@ -1,4 +1,4 @@
-name: Update Webhooker
+name: Update CFC Iris
 
 env:
   projectUrl: 'CFC-Servers/cfc_iris'
