@@ -32,34 +32,42 @@ jobs:
           cd -
 
       - name: Exit early if no update
+        id: needs_update
         env:
           PROJECT_VERSION: ${{ steps.workflow_versions.outputs.VERSION }}
           PREVIOUS_PROJECT_VERSION: ${{ steps.workflow_versions.outputs.PREVIOUS_VERSION }}
           PROJECT_WORKFLOW: ${{ env.projectWorkflow }}
         run: |
           cd "$GITHUB_WORKSPACE/workflows/"
-          # Exit early if there was no update for this project's workflow
-          (git --no-pager diff --name-only "$PREVIOUS_PROJECT_VERSION" "$PROJECT_VERSION" | grep "$PROJECT_WORKFLOW") || ( echo "No update needed"; exit 0 )
+
+          (git --no-pager diff --name-only "$PREVIOUS_PROJECT_VERSION" "$PROJECT_VERSION" | grep "$PROJECT_WORKFLOW") &&
+          echo ::set-output name=NEEDS_UPDATE::$(echo "yes") ||
+          echo ::set-output name=NEEDS_UPDATE::$(echo "no")
+
           cd -
 
       - name: Get version diff link
         id: version_diff
+        if: ${{ steps.needs_update.outputs.NEEDS_UPDATE == 'yes' }}
         env:
           VERSION_DIFF: ${{ github.server_url }}/${{ github.repository }}/compare/${{ steps.workflow_versions.outputs.PREVIOUS_VERSION }}..${{ steps.workflow_versions.outputs.VERSION }}
         run: echo ::set-output name=VERSION_DIFF::$(echo "$VERSION_DIFF")
 
       - name: Checkout
         uses: actions/checkout@v2
+        if: ${{ steps.needs_update.outputs.NEEDS_UPDATE == 'yes' }}
         with:
           repository: ${{ env.projectUrl }}
           token: ${{ secrets.GH_TOKEN }}
           path: project
 
       - name: Update workflow version
+        if: ${{ steps.needs_update.outputs.NEEDS_UPDATE == 'yes' }}
         run: cat "$GITHUB_WORKSPACE/workflows/workflows/build_and_deploy.yml" > "$GITHUB_WORKSPACE/project/.github/workflows/build_and_deploy.yml"
 
       - name: Open PR with changes
         uses: peter-evans/create-pull-request@v3
+        if: ${{ steps.needs_update.outputs.NEEDS_UPDATE == 'yes' }}
         with:
           token: ${{ secrets.GH_TOKEN }}
           path: project
