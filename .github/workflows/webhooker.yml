@@ -44,8 +44,8 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           path: project
+          repository: 'CFC-Servers/cfc_webhooker'
           commit-message: "Update Build & Deploy workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
-          push-to-fork: 'CFC-Servers/cfc_webhooker'
           branch: update-build-and-deploy-workflow
           delete-branch: true
           base: master
