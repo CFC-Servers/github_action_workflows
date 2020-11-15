@@ -1,5 +1,13 @@
 name: Update Webhooker
 
+env:
+  projectUrl: 'CFC-Servers/cfc_webhooker'
+  projectBranch: 'master'
+  projectWorkflow: build_and_deploy
+  reviewers: |
+    brandonsturgeon
+    plally
+
 on:
   push:
     tags:
@@ -23,6 +31,17 @@ jobs:
           echo ::set-output name=PREVIOUS_VERSION::$(git describe --abbrev=0 --tags `git rev-list --tags --skip=1 --max-count=1`)
           cd -
 
+      - name: Exit early if no update
+        env:
+          PROJECT_VERSION: ${{ steps.workflow_versions.outputs.VERSION }}
+          PREVIOUS_PROJECT_VERSION: ${{ steps.workflow_versions.outputs.PREVIOUS_VERSION }}
+          PROJECT_WORKFLOW: ${{ env.projectWorkflow }}
+        run: |
+          cd "$GITHUB_WORKSPACE/workflows/"
+          # Exit early if there was no update for this project's workflow
+          (git --no-pager diff --name-only "$PREVIOUS_PROJECT_VERSION" "$PROJECT_VERSION" | grep "$PROJECT_WORKFLOW") || ( echo "No update needed"; exit 0 )
+          cd -
+
       - name: Get version diff link
         id: version_diff
         env:
@@ -32,7 +51,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: 'CFC-Servers/cfc_webhooker'
+          repository: ${{ env.projectUrl }}
           token: ${{ secrets.GH_TOKEN }}
           path: project
 
@@ -44,11 +63,11 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           path: project
-          repository: 'CFC-Servers/cfc_webhooker'
+          repository: ${{ env.projectUrl }}
           commit-message: "Update Build & Deploy workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
           branch: update-build-and-deploy-workflow
           delete-branch: true
-          base: master
+          base: ${{ env.projectBranch }}
           title: "Update Build & Deploy workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
           body: "This PR was automatically triggered due to [a change in the base Build & Deploy workflow](${{ steps.version_diff.outputs.VERSION_DIFF }})"
-          reviewers: brandonsturgeon,plally
+          reviewers: ${{ env.reviewers }}
