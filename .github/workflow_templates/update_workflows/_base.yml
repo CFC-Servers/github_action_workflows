@@ -1,6 +1,4 @@
 
-name: Update ${{ env.projectName }}
-
 on:
   push:
     tags:
