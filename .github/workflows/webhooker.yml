@@ -34,7 +34,6 @@ jobs:
         with:
           repository: 'CFC-Servers/cfc_webhooker'
           token: ${{ secrets.GH_TOKEN }}
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
           path: project
 
       - name: Update workflow version
@@ -46,6 +45,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           path: project
           commit-message: "Update Build & Deploy workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
+          push-to-fork: 'CFC-Servers/cfc_webhooker'
           branch: update-build-and-deploy-workflow
           delete-branch: true
           base: master
