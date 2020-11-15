@@ -27,7 +27,7 @@ jobs:
 
       - name: Store newest build workflow
         id: new_workflow
-        run: echo ::set-output name=WORKFLOW::$(echo ${{ GITHUB_WORKSPACE }}/workflows/workflows/build_and_deploy.yml)
+        run: echo ::set-output name=WORKFLOW::$(echo $GITHUB_WORKSPACE/workflows/workflows/build_and_deploy.yml)
 
       - name: Checkout
         uses: actions/checkout@v2
