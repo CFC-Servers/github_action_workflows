@@ -1,0 +1,8 @@
+env:
+  projectUrl: 'CFC-Servers/cfc_discord_bot'
+  projectName: 'CFC Discord Bot'
+  projectBranch: 'master'
+  projectWorkflow: build_and_deploy
+  reviewers: |
+    brandonsturgeon
+    plally

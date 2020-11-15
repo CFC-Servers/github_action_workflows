@@ -1,12 +1,13 @@
-name: Update Webhooker
-
 env:
-  projectUrl: 'CFC-Servers/cfc_webhooker'
+  projectUrl: 'CFC-Servers/cfc_report_processor'
+  projectName: 'CFC Report Processor'
   projectBranch: 'master'
   projectWorkflow: build_and_deploy
   reviewers: |
     brandonsturgeon
     plally
+
+name: Update ${{ env.projectName }}
 
 on:
   push:
@@ -40,7 +41,7 @@ jobs:
         run: |
           cd "$GITHUB_WORKSPACE/workflows/"
 
-          (git --no-pager diff --name-only "$PREVIOUS_PROJECT_VERSION" "$PROJECT_VERSION" | grep "$PROJECT_WORKFLOW") &&
+          (git --no-pager diff --name-only "$PREVIOUS_PROJECT_VERSION" "$PROJECT_VERSION" | grep -w "workflows/$PROJECT_WORKFLOW.yml") &&
           echo ::set-output name=NEEDS_UPDATE::$(echo "yes") ||
           echo ::set-output name=NEEDS_UPDATE::$(echo "no")
 
