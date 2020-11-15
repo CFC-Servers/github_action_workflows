@@ -38,7 +38,7 @@ jobs:
           path: project
 
       - name: Update workflow version
-        run: echo ${{ steps.new_workflow.outputs.WORKFLOW }} > ${{ GITHUB_WORKSPACE }}/project/.github/workflows/build_and_deploy.yml
+        run: echo ${{ steps.new_workflow.outputs.WORKFLOW }} > $GITHUB_WORKSPACE/project/.github/workflows/build_and_deploy.yml
 
       - name: Open PR with changes
         uses: peter-evans/create-pull-request@v3
