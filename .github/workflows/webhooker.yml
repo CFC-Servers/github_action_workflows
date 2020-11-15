@@ -22,7 +22,7 @@ jobs:
 
       - name: Get version diff link
         env:
-          PROJECT_URL=${{ github.server_url }}/${{ github.repository }}/compare/${{ steps.workflow_versions.outputs.PREVIOUS_VERSION }}..${{{ steps.workflow_versions.outputs.VERSION }}}
+          PROJECT_URL=${{ github.server_url }}/${{ github.repository }}/compare/${{ steps.workflow_versions.outputs.PREVIOUS_VERSION }}..${{ steps.workflow_versions.outputs.VERSION }}
         run: echo ::set-output name=VERSION_DIFF::$(echo $PROJECT_URL )
 
       - name: Store newest build workflow
