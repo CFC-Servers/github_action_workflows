@@ -27,7 +27,7 @@ jobs:
 
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::$(git describe --abbrev=0 --tags `git rev-list --tags --skip=0 --max-count=1`)
+        run: echo ::set-output name=VERSION::$(git describe --abbrev=0 --tags `git rev-list --tags --max-count=1`)
 
       - name: Lowercase repository name
         id: repository_name
