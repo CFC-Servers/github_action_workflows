@@ -1,5 +1,10 @@
+#!/bin/bash
+
 GITROOT=$(git rev-parse --show-toplevel)
 WORKFLOW_ROOT="$GITROOT/.github/workflows"
+
+echo "Cleaning workflows"
+rm "$WORKFLOW_ROOT"/*.yml
 
 for template in $GITROOT/.github/workflow_templates/*
 do
