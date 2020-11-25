@@ -63,9 +63,9 @@ jobs:
 
       - name: Update workflow version
         if: ${{ steps.needs_update.outputs.NEEDS_UPDATE == 'yes' }}
-        run: cat "$GITHUB_WORKSPACE/workflows/workflows/${{ env.projectWorkflow }}.yml" > "$GITHUB_WORKSPACE/project/.github/workflows/${{ env.projectWorkflow }}.yml"
-
-
+        run: |
+          mkdir -p "$GITHUB_WORKSPACE/project/.github/workflows"
+          cat "$GITHUB_WORKSPACE/workflows/workflows/${{ env.projectWorkflow }}.yml" > "$GITHUB_WORKSPACE/project/.github/workflows/${{ env.projectWorkflow }}.yml"
 
       - name: Open PR with changes
         uses: peter-evans/create-pull-request@v3

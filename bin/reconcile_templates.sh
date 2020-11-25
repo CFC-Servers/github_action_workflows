@@ -11,6 +11,8 @@ do
         profile_name="${profile%.*}"
         profile_name=$(basename "$profile_name")
 
+        echo "Building update workflow for $profile_name"
+
         workflow_path="$WORKFLOW_ROOT/$profile_name.$template_name.yml"
 
         cat "$profile" > "$workflow_path"
