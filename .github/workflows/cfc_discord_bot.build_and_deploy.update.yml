@@ -60,7 +60,7 @@ jobs:
         id: project_outdated
         if: ${{ steps.workflow_updated.outputs.WORKFLOW_UPDATED == 'yes' }}
         env:
-          PROJECT_WORKFLOW: "$GITHUB_WORKSPACE/project/.github/workflows/${{ env.projectWorkflow }}.yml"
+          PROJECT_WORKFLOW: "$GITHUB_WORKSPACE/projects/.github/workflows/${{ env.projectWorkflow }}.yml"
           CURRENT_WORKFLOW: "$GITHUB_WORKSPACE/workflows/workflows/${{ env.projectWorkflow }}.yml"
         run: |
           # Compares the current project workflow and the latest workflow to determine if an updated is actually needed
@@ -69,24 +69,27 @@ jobs:
           echo ::set-output name=PROJECT_OUTDATED::$(echo "yes")
 
       - name: Update workflow version
-        if: ${{ steps.workflow_updated.outputs.WORKFLOW_UPDATED == 'yes' }}
-        if: ${{ steps.project_outdated.outputs.PROJECT_OUTDATED == 'yes' }}
+        if: |
+          ${{ steps.workflow_updated.outputs.WORKFLOW_UPDATED == 'yes' }} ||
+          ${{ steps.project_outdated.outputs.PROJECT_OUTDATED == 'yes' }}
         run: |
           mkdir -p "$GITHUB_WORKSPACE/project/.github/workflows"
           cat "$GITHUB_WORKSPACE/workflows/workflows/${{ env.projectWorkflow }}.yml" > "$GITHUB_WORKSPACE/project/.github/workflows/${{ env.projectWorkflow }}.yml"
 
       - name: Get version diff link
         id: version_diff
-        if: ${{ steps.workflow_updated.outputs.WORKFLOW_UPDATED == 'yes' }}
-        if: ${{ steps.project_outdated.outputs.PROJECT_OUTDATED == 'yes' }}
+        if: |
+          ${{ steps.workflow_updated.outputs.WORKFLOW_UPDATED == 'yes' }} ||
+          ${{ steps.project_outdated.outputs.PROJECT_OUTDATED == 'yes' }}
         env:
           VERSION_DIFF: ${{ github.server_url }}/${{ github.repository }}/compare/${{ steps.workflow_versions.outputs.PREVIOUS_VERSION }}..${{ steps.workflow_versions.outputs.VERSION }}
         run: echo ::set-output name=VERSION_DIFF::$(echo "$VERSION_DIFF")
 
       - name: Open PR with changes
         uses: peter-evans/create-pull-request@v3
-        if: ${{ steps.workflow_updated.outputs.WORKFLOW_UPDATED == 'yes' }}
-        if: ${{ steps.project_outdated.outputs.PROJECT_OUTDATED == 'yes' }}
+        if: |
+          ${{ steps.workflow_updated.outputs.WORKFLOW_UPDATED == 'yes' }} ||
+          ${{ steps.project_outdated.outputs.PROJECT_OUTDATED == 'yes' }}
         with:
           token: ${{ secrets.GH_TOKEN }}
           path: project
