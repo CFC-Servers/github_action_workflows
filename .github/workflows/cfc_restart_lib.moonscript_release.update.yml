@@ -6,7 +6,7 @@ env:
     brandonsturgeon
     plally
 
-name: 'CFC Restart Lib'
+name: 'CFC Restart Lib | Moonscript Release'
 
 on:
   push:

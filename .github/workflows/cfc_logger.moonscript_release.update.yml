@@ -6,7 +6,7 @@ env:
     brandonsturgeon
     plally
 
-name: 'CFC Logger'
+name: 'CFC Logger | Moonscript Release'
 
 on:
   push:

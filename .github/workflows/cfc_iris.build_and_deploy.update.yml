@@ -6,7 +6,7 @@ env:
     brandonsturgeon
     plally
 
-name: 'CFC Iris'
+name: 'CFC Iris | Build and Deploy'
 
 on:
   push:

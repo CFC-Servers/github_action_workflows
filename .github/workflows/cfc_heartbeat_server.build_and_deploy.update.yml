@@ -6,7 +6,7 @@ env:
     brandonsturgeon
     plally
 
-name: 'Update CFC Heartbeat Server'
+name: 'CFC Heartbeat Server | Build and Deploy'
 
 on:
   push:

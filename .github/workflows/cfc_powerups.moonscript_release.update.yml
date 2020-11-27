@@ -6,7 +6,7 @@ env:
     brandonsturgeon
     plally
 
-name: 'CFC Powerups'
+name: 'CFC Powerups | Moonscript Release'
 
 on:
   push:

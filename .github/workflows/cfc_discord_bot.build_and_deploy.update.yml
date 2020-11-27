@@ -6,7 +6,7 @@ env:
     brandonsturgeon
     plally
 
-name: 'Update CFC Discord Bot'
+name: 'CFC Discord Bot | Build and Deploy'
 
 on:
   push:
