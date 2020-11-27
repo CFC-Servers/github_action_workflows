@@ -1,6 +1,6 @@
 env:
   projectUrl: 'CFC-Servers/gm_heartbeat'
-  projectBranch: 'master'
+  projectBranch: 'main'
   projectWorkflow: moonscript_release
   reviewers: |
     brandonsturgeon
