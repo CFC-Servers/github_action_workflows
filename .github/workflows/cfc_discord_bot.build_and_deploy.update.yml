@@ -60,7 +60,7 @@ jobs:
         id: project_outdated
         if: ${{ steps.workflow_updated.outputs.WORKFLOW_UPDATED == 'yes' }}
         env:
-          PROJECT_WORKFLOW: "$GITHUB_WORKSPACE/projects/.github/workflows/${{ env.projectWorkflow }}.yml"
+          PROJECT_WORKFLOW: "$GITHUB_WORKSPACE/project/.github/workflows/${{ env.projectWorkflow }}.yml"
           CURRENT_WORKFLOW: "$GITHUB_WORKSPACE/workflows/workflows/${{ env.projectWorkflow }}.yml"
         run: |
           # Compares the current project workflow and the latest workflow to determine if an updated is actually needed
