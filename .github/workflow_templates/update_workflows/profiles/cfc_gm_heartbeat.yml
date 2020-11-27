@@ -1,0 +1,9 @@
+env:
+  projectUrl: 'CFC-Servers/gm_heartbeat'
+  projectBranch: 'master'
+  projectWorkflow: moonscript_release
+  reviewers: |
+    brandonsturgeon
+    plally
+
+name: 'CFC Ignore Lag'
