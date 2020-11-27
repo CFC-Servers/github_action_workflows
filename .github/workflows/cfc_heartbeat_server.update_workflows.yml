@@ -73,10 +73,10 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           path: project
-          commit-message: "Update Build & Deploy workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
-          branch: update-build-and-deploy-workflow
+          commit-message: "Update ${{ env.projectWorkflow }} workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
+          branch: "update-workflow-${{ steps.workflow_versions.outputs.VERSION }}"
           delete-branch: true
           base: ${{ env.projectBranch }}
-          title: "Update Build & Deploy workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
+          title: "Update ${{ env.projectWorkflow }} workflow to ${{ steps.workflow_versions.outputs.VERSION }}"
           body: "This PR was automatically triggered due to [a change in the base `${{ env.projectWorkflow }}` workflow](${{ steps.version_diff.outputs.VERSION_DIFF }})"
           reviewers: ${{ env.reviewers }}
