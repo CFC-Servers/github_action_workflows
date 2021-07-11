@@ -1,0 +1,8 @@
+env:
+  projectUrl: 'CFC-Servers/gm_sudo'
+  projectBranch: 'main'
+  projectWorkflow: moonscript_release
+  reviewers: |
+    brandonsturgeon
+
+name: 'GMod Sudo | Moonscript Release'
