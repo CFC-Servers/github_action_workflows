@@ -5,9 +5,12 @@ runs:
   steps:
     - name: Update apt
       run: sudo apt-get update -y
+      shell: bash
 
     - name: Install LuaRocks
       run: sudo apt-get install -y luarocks
+      shell: bash
 
     - name: Install Moonscript
       run: sudo luarocks install moonscript
+      shell: bash
