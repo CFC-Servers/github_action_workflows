@@ -1,0 +1,15 @@
+name: "Build moonscript project"
+description: "Builds the moonscript project to ensure the code is valid"
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v2
+    - uses: CFC-Servers/github_action_workflows/install_moonscript@feature/composite
+
+    - name: CD into project
+      run: cd $GITHUB_WORKSPACE
+      shell: bash
+
+    - name: Build project
+      run: moonc -t lua moon/*
+      shell: bash

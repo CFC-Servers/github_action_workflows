@@ -1,5 +1,5 @@
 name: "Lint moonscript project"
-description: "Builds the Moonscript into Lua, then force-pushes the new code to the `lua` branch"
+description: "Lints the moonscript project"
 runs:
   using: composite
   steps:
@@ -17,10 +17,6 @@ runs:
 
     - name: CD into project
       run: cd $GITHUB_WORKSPACE
-      shell: bash
-
-    - name: Build project
-      run: moonc -t lua moon/*
       shell: bash
 
     - name: Build config
