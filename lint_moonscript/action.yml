@@ -27,9 +27,18 @@ runs:
       run: moonc lint_config.moon && rm lint_config.moon
       shell: bash
 
-    - name: Run and format linter
+    - name: Run Linter
+      run: moonc -l . &> lint_output.txt
+      shell: bash
+
+    - name: Format linter output
       run: |
-        moonc -l . |
+        cat lint_output.txt |
         sed "s/^\(line.*\)/${exc}[31m\1${exc}[0m/" |
         sed -E "s,^>(.*),echo \">\1\" | pygmentize -O full\,style=friendly -l moon -f 256,e"
+      shell: bash
+
+    - name: Fail if output
+      run: |
+        [-s lint_output.txt] || exit 1
       shell: bash
