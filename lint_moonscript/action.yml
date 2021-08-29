@@ -4,7 +4,7 @@ runs:
   using: composite
   steps:
     - uses: actions/checkout@v2
-    - uses: ./install_moonscript
+    - uses: CFC-Servers/github_action_workflows/install_moonscript@feature/composite
 
     - uses: actions/checkout@v2
       with:
