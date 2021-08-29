@@ -9,9 +9,10 @@ runs:
     - uses: actions/checkout@v2
       with:
         repository: "CFC-Servers/cfc_moonc_lint_config"
+        path: lint_config
 
     - name: Move config
-      run: mv ./cfc_moonc_lint_config/lint_config.moon $GITHUB_WORKSPACE/
+      run: mv "$GITHUB_WORKSPACE/lint_config/lint_config.moon" "$GITHUB_WORKSPACE/"
       shell: bash
 
     - name: CD into project
