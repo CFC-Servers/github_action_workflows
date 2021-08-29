@@ -6,6 +6,10 @@ runs:
     - uses: actions/checkout@v2
     - uses: CFC-Servers/github_action_workflows/install_moonscript@feature/composite
 
+    - name: Install python-pygments
+      run: sudo apt-get install -y python-pygments
+      shell: bash
+
     - uses: actions/checkout@v2
       with:
         repository: "CFC-Servers/cfc_moonc_lint_config"
