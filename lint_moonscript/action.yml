@@ -23,6 +23,9 @@ runs:
       run: moonc lint_config.moon && rm lint_config.moon
       shell: bash
 
-    - name: Run linter
-      run: moonc -l .
+    - name: Run and format linter
+      run: |
+        moonc -l . |
+        sed "s/^\(line.*\)/${exc}[31m\1${exc}[0m/" |
+        sed -E "s,^>(.*),echo \">\1\" | pygmentize -O full\,style=friendly -l moon -f 256,e"
       shell: bash
