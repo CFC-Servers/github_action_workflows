@@ -41,5 +41,5 @@ runs:
 
     - name: Fail if output
       run: |
-        [-s lint_output.txt] || exit 1
+        [ -s lint_output.txt ] || exit 1
       shell: bash
