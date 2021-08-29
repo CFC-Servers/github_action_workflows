@@ -33,12 +33,14 @@ runs:
 
     - name: Format linter output
       run: |
-        exc=$(printf '\u001b');
-        cat lint_output.txt |
-        sed -E "s,^(line.*),${exc}[31m\1${exc}[0m," |
-        sed -E "s,^>(.*),echo \">\1\" | pygmentize -O full\,style=friendly -l moon -f 256,e"
-      shell: bash
-
-    - name: Fail if output
-      run: [ -s lint_output.txt ] || exit 1
+        output=$(cat lint_output.txt);
+        if [ -z "$output" ]; then
+          exit 0
+        else
+          exc=$(printf '\u001b');
+          echo "$output" |
+          sed -E "s,^(line.*),${exc}[31m\1${exc}[0m," |
+          sed -E "s,^>(.*),echo \">\1\" | pygmentize -O full\,style=friendly -l moon -f 256,e" &&
+          exit 1
+        fi
       shell: bash
