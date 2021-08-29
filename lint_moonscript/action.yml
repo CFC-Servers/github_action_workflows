@@ -40,6 +40,5 @@ runs:
       shell: bash
 
     - name: Fail if output
-      run: |
-        [ -s lint_output.txt ] || exit 1
+      run: [ -s lint_output.txt ] || exit 1
       shell: bash
