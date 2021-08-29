@@ -35,11 +35,12 @@ runs:
       run: |
         exc=$(printf '\u001b');
         cat lint_output.txt |
-        sed "s/^\(line.*\)/${exc}[31m\1${exc}[0m/" |
-        sed -E "s,^>(.*),echo \">\1\" | pygmentize -O full\,style=friendly -l moon -f 256,e"
+        sed -E "s,^(line.*),${exc}[31m\1${exc}[0m," |
+        sed -E "s,^>(.*),echo \">\1\" | pygmentize -O full\,style=friendly -l moon -f 256,e" > formatted_output.txt
       shell: bash
 
     - name: Fail if output
       run: |
+        cat formatted_output.txt
         [-s lint_output.txt] || exit 1
       shell: bash
