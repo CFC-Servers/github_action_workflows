@@ -1,0 +1,26 @@
+name: "Lint moonscript project"
+description: "Builds the Moonscript into Lua, then force-pushes the new code to the `lua` branch"
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v2
+    - uses: ./install_moonscript
+
+    - uses: actions/checkout@v2
+      with:
+        repository: "CFC-Servers/cfc_moonc_lint_config"
+
+    - name: Move config
+      run: mv ./cfc_moonc_lint_config/lint_config.moon $GITHUB_WORKSPACE/
+
+    - name: CD into project
+      run: cd $GITHUB_WORKSPACE
+
+    - name: Build project
+      run: moonc -t lua moon/*
+
+    - name: Build config
+      run: moonc lint_config.moon && rm lint_config.moon
+
+    - name: Run linter
+      run: moonc -l .

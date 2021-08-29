@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_restart_lib'
-  projectBranch: 'master'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC Restart Lib | Moonscript Release'

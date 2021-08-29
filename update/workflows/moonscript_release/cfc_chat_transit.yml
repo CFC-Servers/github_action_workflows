@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_chat_transit'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC Chat Transit | Moonscript Release'

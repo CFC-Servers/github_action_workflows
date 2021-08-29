@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/gm_heartbeat'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC GMod Heartbeat| Moonscript Release'

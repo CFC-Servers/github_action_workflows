@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_gmod_webhooker_interface'
-  projectBranch: 'master'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC GMod Webhooker Interface | Moonscript Release'

@@ -1,0 +1,13 @@
+name: Install Moonscript
+description: "Installs Moonscript CLI"
+runs:
+  using: composite
+  steps:
+    - name: Update apt
+      run: sudo apt-get update -y
+
+    - name: Install LuaRocks
+      run: sudo apt-get install -y luarocks
+
+    - name: Install Moonscript
+      run: sudo luarocks install moonscript

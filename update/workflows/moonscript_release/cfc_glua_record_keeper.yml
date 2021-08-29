@@ -1,8 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_glua_record_keeper'
-  projectBranch: 'master'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-
-name: 'CFC GLua Record Keeper | Moonscript Release'
