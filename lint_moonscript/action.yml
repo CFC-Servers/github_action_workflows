@@ -12,15 +12,20 @@ runs:
 
     - name: Move config
       run: mv ./cfc_moonc_lint_config/lint_config.moon $GITHUB_WORKSPACE/
+      shell: bash
 
     - name: CD into project
       run: cd $GITHUB_WORKSPACE
+      shell: bash
 
     - name: Build project
       run: moonc -t lua moon/*
+      shell: bash
 
     - name: Build config
       run: moonc lint_config.moon && rm lint_config.moon
+      shell: bash
 
     - name: Run linter
       run: moonc -l .
+      shell: bash
