@@ -1,0 +1,8 @@
+env:
+  projectUrl: 'CFC-Servers/gm_cable'
+  projectBranch: 'main'
+  projectWorkflow: moonscript_release
+  reviewers: |
+    brandonsturgeon
+
+name: 'GM Cable | Moonscript Release'
