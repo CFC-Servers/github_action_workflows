@@ -40,7 +40,7 @@ runs:
           exc=$(printf '\u001b');
           echo "$output" |
           sed -E "s,^(line.*),${exc}[31m\1${exc}[0m," |
-          sed -E "s,(\\),\\\\," |
+          sed -E 's,(\\),\\\\,' |
           sed -E "s,^>(.*),echo \">\1\" | pygmentize -O full\,style=friendly -l moon -f 256,e" &&
           exit 1
         fi
