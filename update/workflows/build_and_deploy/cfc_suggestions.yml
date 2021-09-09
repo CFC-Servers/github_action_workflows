@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_suggestions'
-  projectBranch: 'master'
-  projectWorkflow: build_and_deploy
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'Update CFC Suggestions | Build and Deploy'

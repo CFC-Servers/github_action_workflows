@@ -1,8 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_pain_sounds'
-  projectBranch: 'master'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-
-name: 'CFC Pain Sounds | Moonscript Release'

@@ -1,8 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/gm_mixpanel'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-
-name: 'Mixpanel Interface| Moonscript Release'

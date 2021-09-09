@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_discord_bot'
-  projectBranch: 'master'
-  projectWorkflow: lint_python
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC Discord Bot | Lint Python'
