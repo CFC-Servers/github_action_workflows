@@ -1,6 +1,6 @@
 env:
   projectUrl: 'CFC-Servers/cfc_wiremod_limitations'
-  projectBranch: 'master'
+  projectBranch: 'main'
   projectWorkflow: moonscript_release
   reviewers: |
     brandonsturgeon
