@@ -1,0 +1,8 @@
+env:
+  projectUrl: 'CFC-Servers/cfc_groupwarn'
+  projectBranch: 'main'
+  projectWorkflow: moonscript_release
+  reviewers: |
+    brandonsturgeon
+
+name: 'CFC GroupWarn | Moonscript Release'
