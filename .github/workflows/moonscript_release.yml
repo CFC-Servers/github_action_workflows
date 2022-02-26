@@ -71,6 +71,8 @@ jobs:
           body: Latest Release with pre-compiled Lua (Ready to put in your addons directory)
           draft: false
           prerelease: false
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.repository }}
 
       - name: Upload Release Asset
         id: upload-release-asset
