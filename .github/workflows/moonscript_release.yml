@@ -2,9 +2,6 @@ name: Create Moonscript Release
 
 on:
   workflow_call:
-    secrets:
-      GH_TOKEN:
-        required: true
     outputs:
       release-url:
         description: "URL of the release created by this job"
