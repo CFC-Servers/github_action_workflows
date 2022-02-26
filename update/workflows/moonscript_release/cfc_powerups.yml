@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_powerups'
-  projectBranch: 'master'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC Powerups | Moonscript Release'

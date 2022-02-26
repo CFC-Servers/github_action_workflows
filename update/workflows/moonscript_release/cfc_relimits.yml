@@ -1,8 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_relimits'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-
-name: 'CFC Relimits | Moonscript Release'

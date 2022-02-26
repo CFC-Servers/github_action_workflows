@@ -1,8 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_friendwarn'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-
-name: 'CFC FriendWarn | Moonscript Release'

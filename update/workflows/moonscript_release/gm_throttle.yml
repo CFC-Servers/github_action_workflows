@@ -1,8 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/gm_throttle'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-
-name: 'GM Throttle | Moonscript Release'

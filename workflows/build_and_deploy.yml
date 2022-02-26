@@ -1,9 +1,24 @@
 name: Build and Deploy
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_call:
+    secrets:
+      GH_TOKEN:
+        required: true
+      DOCKER_USERNAME:
+        required: true
+      DEPLOYMENT_DIR:
+        required: true
+      SSH_HOST:
+        required: true
+      SSH_USERNAME:
+        required: true
+      SSH_PRIVATE_KEY:
+        required: true
+      SSH_PORT:
+        required: true
+      DISCORD_WEBHOOK:
+        required: true
 
 jobs:
   build:

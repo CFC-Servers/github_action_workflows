@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_pvp'
-  projectBranch: 'master'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC PvP | Moonscript Release'

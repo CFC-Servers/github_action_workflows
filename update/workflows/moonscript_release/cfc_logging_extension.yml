@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_logging_extension'
-  projectBranch: 'master'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC Logging Extension | Moonscript Release'

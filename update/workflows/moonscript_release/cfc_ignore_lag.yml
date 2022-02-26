@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_ignore_lag'
-  projectBranch: 'master'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC Ignore Lag | Moonscript Release'

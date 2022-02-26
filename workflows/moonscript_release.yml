@@ -1,9 +1,14 @@
 name: Create Moonscript Release
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+    outputs:
+      release-url:
+        description: "URL of the release created by this job"
+        value: ${{ jobs.build.outputs.releaseurl }}
 
 jobs:
   build:
@@ -46,7 +51,6 @@ jobs:
           git add .
           git commit -m "Release build: $(cat VERSION)"
           git push -f origin HEAD:lua
-
       - name: Remove .git dir
         run: rm -rf .git
 
@@ -82,3 +86,5 @@ jobs:
           asset_name: ${{ github.event.repository.name }}.zip
           asset_content_type: application/zip
 
+      - name: Output Release URL
+        run: echo "::set-output name=releaseurl::${{ steps.create_release.outputs.upload_url }}"
