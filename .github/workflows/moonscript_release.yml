@@ -3,7 +3,7 @@ name: Create Moonscript Release
 on:
   workflow_call:
     secrets:
-      GITHUB_TOKEN:
+      GH_TOKEN:
         required: true
     outputs:
       release-url:
