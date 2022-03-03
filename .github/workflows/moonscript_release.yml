@@ -74,15 +74,13 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: "lol not a token"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: Latest Release with pre-compiled Lua (Ready to put in your addons directory)
           draft: false
           prerelease: false
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.repository }}
 
       - name: Upload Release Asset
         id: upload-release-asset
