@@ -2,10 +2,19 @@ name: Create Moonscript Release
 
 on:
   workflow_call:
+    inputs:
+      release-assets:
+        type: string
+        description: "Whether to include a zip of the assets in the release"
+        required: false
+        default: "true"
     outputs:
       release-url:
         description: "URL of the release created by this job"
         value: ${{ jobs.build.outputs.releaseurl }}
+    secrets:
+      GH_TOKEN:
+        required: true
 
 jobs:
   build:
@@ -48,16 +57,20 @@ jobs:
           git add .
           git commit -m "Release build: $(cat VERSION)"
           git push -f origin HEAD:lua
+
       - name: Remove .git dir
         run: rm -rf .git
 
       - name: Create subdirectory
+        if: ${{ inputs.release-assets }} == "true"
         run: mkdir ${{ github.event.repository.name }}
 
       - name: Move files into sub directory
+        if: ${{ inputs.release-assets }} == "true"
         run: ls | grep -v ${{ github.event.repository.name }} | xargs mv -t ${{ github.event.repository.name }}
 
       - name: Create Release Asset
+        if: ${{ inputs.release-assets }} == "true"
         run: zip -r9 ${{ github.event.repository.name }}.zip .
 
       - name: Publish Release
@@ -76,6 +89,7 @@ jobs:
 
       - name: Upload Release Asset
         id: upload-release-asset
+        if: ${{ inputs.release-assets }} == "true"
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
