@@ -12,9 +12,6 @@ on:
       release-url:
         description: "URL of the release created by this job"
         value: ${{ jobs.build.outputs.releaseurl }}
-    secrets:
-      GH_TOKEN:
-        required: true
 
 jobs:
   build:
