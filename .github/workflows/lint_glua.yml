@@ -10,17 +10,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y libffi8-dev
-
       - name: Prepare GLuaFixer
         run: |
           cd $GITHUB_WORKSPACE
           curl -L https://github.com/FPtje/GLuaFixer/releases/download/1.18.3/glualint-1.18.3-linux.zip > glualint.zip
+
+      - name: Extract GLuaFixer
+        run: |
+          cd $GITHUB_WORKSPACE
           unzip glualint.zip
+
+      - name: Remove blacklisted folders
+        run: rm -rvf lua/entities/gmod_wire_expression2/
 
       - name: Lint with GLuaFixer
         run: |
-          ./glualint
+          ./glualint lint lua
