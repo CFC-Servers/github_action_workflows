@@ -23,8 +23,8 @@ jobs:
           unzip glualint.zip
 
       - name: Remove blacklisted folders
-        run: rm -rvf ./project/lua/entities/gmod_wire_expression2/
+        run: rm -rvf $GITHUB_WORKSPACE/project/lua/entities/gmod_wire_expression2/
 
       - name: Lint with GLuaFixer
         run: |
-          ./glualint lint ./project/lua
+          ./glualint lint $GITHUB_WORKSPACE/project/lua
