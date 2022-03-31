@@ -27,4 +27,4 @@ jobs:
 
       - name: Lint with GLuaFixer
         run: |
-          ./glualint lint $GITHUB_WORKSPACE/project/lua
+          ./glualint --output-format github lint $GITHUB_WORKSPACE/project/lua
