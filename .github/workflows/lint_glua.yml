@@ -8,7 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          path: project
 
       - name: Prepare GLuaFixer
         run: |
@@ -21,8 +23,8 @@ jobs:
           unzip glualint.zip
 
       - name: Remove blacklisted folders
-        run: rm -rvf lua/entities/gmod_wire_expression2/
+        run: rm -rvf ./project/lua/entities/gmod_wire_expression2/
 
       - name: Lint with GLuaFixer
         run: |
-          ./glualint lint lua
+          ./glualint lint ./project/lua
