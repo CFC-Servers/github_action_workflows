@@ -30,23 +30,22 @@ jobs:
 
       - name: Get config file
         run: |
-          echo "::echo::on"
-
           GLUALINT_PATH=${{ inputs.config }}
           if [[ "$GLUALINT_PATH" == "" ]];
           then
               echo "::warn:: No glualint config provided. Using defaults."
               echo "{}" > "$GITHUB_WORKSPACE/.glualint.json"
-              return
-          fi
-
-          if [[ "$GLUALINT_PATH" == http* ]]
-          then
-              echo "::info:: Given remote glualint path. Downloading..."
-              curl -vL "$GLUALINT_PATH" > "$GITHUB_WORKSPACE/.glualint.json"
           else
-              echo "::info:: Given local path to glualint config. Copying..."
-              cp -v "$GITHUB_WORKSPACE/project/$GLUALINT_PATH" "$GITHUB_WORKSPACE/.glualint.json"
+
+            if [[ "$GLUALINT_PATH" == http* ]]
+            then
+                echo "::info:: Given remote glualint path. Downloading..."
+                curl -vL "$GLUALINT_PATH" > "$GITHUB_WORKSPACE/.glualint.json"
+            else
+                echo "::info:: Given local path to glualint config. Copying..."
+                cp -v "$GITHUB_WORKSPACE/project/$GLUALINT_PATH" "$GITHUB_WORKSPACE/.glualint.json"
+            fi
+
           fi
 
       - name: Lint with GLuaFixer
