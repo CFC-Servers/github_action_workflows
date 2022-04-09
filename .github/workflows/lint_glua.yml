@@ -30,7 +30,7 @@ jobs:
 
       - name: Get config file
         run: |
-          GLUALINT_PATH={{ inputs.config }}
+          GLUALINT_PATH=${{ inputs.config }}
           if [[ "$GLUALINT_PATH" == "" ]];
           then
               echo "::warn:: No glualint config provided. Using defaults."
