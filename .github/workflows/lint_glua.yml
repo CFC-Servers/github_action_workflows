@@ -30,6 +30,8 @@ jobs:
 
       - name: Get config file
         run: |
+          echo "::echo::on"
+
           GLUALINT_PATH=${{ inputs.config }}
           if [[ "$GLUALINT_PATH" == "" ]];
           then
