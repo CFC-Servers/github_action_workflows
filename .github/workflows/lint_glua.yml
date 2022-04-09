@@ -35,6 +35,7 @@ jobs:
           then
               echo "::warn:: No glualint config provided. Using defaults."
               echo "{}" > "$GITHUB_WORKSPACE/.glualint.json"
+              return
           fi
 
           if [[ "$GLUALINT_PATH" == http* ]]
