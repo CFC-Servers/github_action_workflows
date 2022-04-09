@@ -2,6 +2,12 @@ name: Lint GLua
 
 on:
   workflow_call:
+    inputs:
+      config:
+        type: string
+        required: false
+        default: ""
+        description: "A URL or path (relative to your project root) of the glualint config"
 
 jobs:
   lint:
@@ -15,16 +21,31 @@ jobs:
       - name: Prepare GLuaFixer
         run: |
           cd $GITHUB_WORKSPACE
-          curl -L https://github.com/FPtje/GLuaFixer/releases/download/1.18.3/glualint-1.18.3-linux.zip > glualint.zip
+          curl -L https://github.com/FPtje/GLuaFixer/releases/download/1.20.1/glualint-1.20.1-linux.zip > glualint.zip
 
       - name: Extract GLuaFixer
         run: |
           cd $GITHUB_WORKSPACE
           unzip glualint.zip
 
-      - name: Remove blacklisted folders
-        run: rm -rvf $GITHUB_WORKSPACE/project/lua/entities/gmod_wire_expression2/
+      - name: Get config file
+        run: |
+          GLUALINT_PATH={{ inputs.config }}
+          if [[ "$GLUALINT_PATH" == "" ]];
+          then
+              echo "::warn:: No glualint config provided. Using defaults."
+              echo "{}" > "$GITHUB_WORKSPACE/.glualint.json"
+          fi
+
+          if [[ "$GLUALINT_PATH" == http* ]]
+          then
+              echo "::info:: Given remote glualint path. Downloading..."
+              curl -vL "$GLUALINT_PATH" > "$GITHUB_WORKSPACE/.glualint.json"
+          else
+              echo "::info:: Given local path to glualint config. Copying..."
+              cp -v "$GITHUB_WORKSPACE/project/$GLUALINT_PATH" "$GITHUB_WORKSPACE/.glualint.json"
+          fi
 
       - name: Lint with GLuaFixer
         run: |
-          ./glualint --output-format github lint $GITHUB_WORKSPACE/project/lua
+          ./glualint --output-format github -config "$GITHUB_WORKSPACE/.glualint.json" lint "$GITHUB_WORKSPACE/project/lua"
