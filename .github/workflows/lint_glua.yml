@@ -57,7 +57,5 @@ jobs:
 
       - name: Print linting errors
         run: |
-          if [[ "$linting_failures" == "true"]];
-          then
-              "$GITHUB_WORKSPACE/glualint" --output-format standard --config "$GITHUB_WORKSPACE/.glualint.json" lint .
-          fi
+          [[ "$linting_failures" == "false" ]] && exit 0;
+          "$GITHUB_WORKSPACE/glualint" --output-format standard --config "$GITHUB_WORKSPACE/.glualint.json" lint .
