@@ -37,7 +37,7 @@ jobs:
               echo "{}" > "$GITHUB_WORKSPACE/.glualint.json"
           else
 
-            if [[ "$GLUALINT_PATH" == http* ]]
+            if [[ "$GLUALINT_PATH" == http* ]];
             then
                 echo "::info:: Given remote glualint path. Downloading..."
                 curl -vL "$GLUALINT_PATH" > "$GITHUB_WORKSPACE/.glualint.json"
@@ -48,12 +48,16 @@ jobs:
 
           fi
 
-      - name: Test print
-        run: |
-          echo "::warning file=lua/autorun/test.lua,line=14,col=5,endLine=16,endColumn=7::Double if statement. Please combine the condition of this if statement with that of the outer if statement using 'and'."
-          exit 1
-
       - name: Lint with GLuaFixer
         run: |
           cd "$GITHUB_WORKSPACE/project/"
-          #"$GITHUB_WORKSPACE/glualint" --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint .
+          "$GITHUB_WORKSPACE/glualint" --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint . && \
+          echo "linting_failures=false" >> $GITHUB_ENV || \
+          echo "linting_failures=true" >> $GITHUB_ENV
+
+      - name: Print linting errors
+        run: |
+          if [[ "$linting_failures" == "true"]];
+          then
+              "$GITHUB_WORKSPACE/glualint" --output-format standard --config "$GITHUB_WORKSPACE/.glualint.json" lint .
+          fi
