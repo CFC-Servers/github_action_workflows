@@ -48,19 +48,14 @@ jobs:
 
           fi
 
-      - name: Test print
-        run: |
-          echo "::warning file=lua/autorun/test.lua,line=14,col=5,endLine=16,endColumn=7::Double if statement. Please combine the condition of this if statement with that of the outer if statement using 'and'."
-          exit 1
+       - name: Lint with GLuaFixer
+         run: |
+           cd "$GITHUB_WORKSPACE/project/"
+           "$GITHUB_WORKSPACE/glualint" --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint . && \
+           echo "linting_failures=false" >> $GITHUB_ENV || \
+           echo "linting_failures=true" >> $GITHUB_ENV
 
-      # - name: Lint with GLuaFixer
-      #   run: |
-      #     cd "$GITHUB_WORKSPACE/project/"
-      #     "$GITHUB_WORKSPACE/glualint" --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint . && \
-      #     echo "linting_failures=false" >> $GITHUB_ENV || \
-      #     echo "linting_failures=true" >> $GITHUB_ENV
-
-      # - name: Print linting errors
-      #   run: |
-      #     [[ "$linting_failures" == "false" ]] && exit 0;
-      #     "$GITHUB_WORKSPACE/glualint" --output-format standard --config "$GITHUB_WORKSPACE/.glualint.json" lint .
+       - name: Print linting errors
+         run: |
+           [[ "$linting_failures" == "false" ]] && exit 0;
+           "$GITHUB_WORKSPACE/glualint" --output-format standard --config "$GITHUB_WORKSPACE/.glualint.json" lint .
