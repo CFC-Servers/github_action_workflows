@@ -51,6 +51,7 @@ jobs:
       - name: Test print
         run: |
           echo "::warning file=./testcode/autorun/test.lua,line=14,col=5,endLine=16,endColumn=7::Double if statement. Please combine the condition of this if statement with that of the outer if statement using `and`."
+          exit 1
 
       - name: Lint with GLuaFixer
         run: |
