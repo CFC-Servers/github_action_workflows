@@ -50,13 +50,8 @@ jobs:
 
       - name: Test print
         run: |
-          ::warning file=./testcode/autorun/test.lua,line=5,col=7,endLine=5,endColumn=13::Unused variable: unused
+          echo "::warning file=./testcode/autorun/test.lua,line=5,col=7,endLine=5,endColumn=13::Unused variable: unused"
 
       - name: Lint with GLuaFixer
         run: |
-          ./glualint --output-format standard --config "$GITHUB_WORKSPACE/.glualint.json" lint "$GITHUB_WORKSPACE/project/lua"
-
-      - name: errors
-        run: |
           ./glualint --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint "$GITHUB_WORKSPACE/project/lua"
-        if: ${{ failure() }}
