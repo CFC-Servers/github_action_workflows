@@ -54,4 +54,5 @@ jobs:
 
       - name: Lint with GLuaFixer
         run: |
-          ./glualint --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint "$GITHUB_WORKSPACE/project/lua"
+          cd "$GITHUB_WORKSPACE/project/"
+          "$GITHUB_WORKSPACE/glualint" --output-format github --config "$GITHUB_WORKSPACE/.glualint.json" lint .
