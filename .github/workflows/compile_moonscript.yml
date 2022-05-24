@@ -1,0 +1,35 @@
+name: Compile Moonscript
+
+on:
+  workflow_call:
+    inputs:
+      project-dir:
+        type: string
+        description: "Location of the moonscript project dir (relative to the GH workspace)"
+        required: false
+        default: "project"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: CD
+        run: |
+          cd $GITHUB_WORKSPACE/${{ inputs.project-dir }}
+          pwd
+          ls -alh
+
+      - name: Update apt
+        run: sudo apt-get update -y
+
+      - name: Install LuaRocks
+        run: sudo apt-get install -y luarocks
+
+      - name: Install Moonscript
+        run: sudo luarocks install moonscript
+
+      - name: Build Lua
+        run: moonc -t lua moon/*
