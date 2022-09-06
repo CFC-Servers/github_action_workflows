@@ -10,13 +10,8 @@ runs:
       run: sudo apt-get install -y python-pygments
       shell: bash
 
-    - uses: actions/checkout@v2
-      with:
-        repository: "CFC-Servers/cfc_moonc_lint_config"
-        path: lint_config
-
-    - name: Move config
-      run: mv "$GITHUB_WORKSPACE/lint_config/lint_config.moon" "$GITHUB_WORKSPACE/"
+    - name: Get Lint config
+      run: curl -L https://cfc.gg/configs/moonc/lint_config.moon > "$GITHUB_WORKSPACE/lint_config.moon"
       shell: bash
 
     - name: CD into project
