@@ -95,4 +95,4 @@ jobs:
           asset_content_type: application/zip
 
       - name: Output Release URL
-        run: echo "{releaseurl}=${{ steps.create_release.outputs.upload_url }}" >> $GITHUB_OUTPUT
+        run: echo "releaseurl=${{ steps.create_release.outputs.upload_url }}" >> $GITHUB_OUTPUT
