@@ -18,14 +18,10 @@ jobs:
         with:
           path: project
 
-      - name: Update apt
-        run: sudo apt-get update -y
-
-      - name: Install python3-pygments
-        run: sudo apt-get install -y python3-pygments
-
-      - name: Install LuaRocks
-        run: sudo apt-get install -y luarocks
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y python3-pygments luarocks
 
       - name: Install Moonscript
         run: sudo luarocks install moonscript
