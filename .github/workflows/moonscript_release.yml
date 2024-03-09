@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: CD
         run: cd $GITHUB_WORKSPACE
@@ -33,16 +33,13 @@ jobs:
         run: sudo luarocks install moonscript
 
       - name: Build Lua
-        run: moonc -t lua moon/*
+        run: moonc .
 
       - name: Remove moon
-        run: rm -rf moon
+        run: rm **/*.moon
 
       - name: Remove github dir
-        run: rm -rf .github
-
-      - name: Remove .gitignore
-        run: rm -rf .gitignore
+        run: rm -rf .github .gitignore
 
       - name: Create VERSION file
         run: versionStr=${{ github.ref }};echo -e v${versionStr#*v} > VERSION
