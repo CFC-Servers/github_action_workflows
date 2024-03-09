@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/gm_steam_lookup'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'GM SteamLookup | Moonscript Release'

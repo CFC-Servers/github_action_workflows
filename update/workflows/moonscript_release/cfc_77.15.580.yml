@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_77.15.580'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC Section580 | Moonscript Release'

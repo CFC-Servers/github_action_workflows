@@ -1,8 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_dynamic_limits'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-
-name: 'CFC Dynamic Limits | Moonscript Release'

@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_factions_backend'
-  projectBranch: 'master'
-  projectWorkflow: build_and_deploy
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC Factions Backend | Build and Deploy'

@@ -1,16 +1,24 @@
 name: Create Moonscript Release
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_call:
+    inputs:
+      release-assets:
+        type: string
+        description: "Whether to include a zip of the assets in the release"
+        required: false
+        default: "true"
+    outputs:
+      release-url:
+        description: "URL of the release created by this job"
+        value: ${{ jobs.build.outputs.releaseurl }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: CD
         run: cd $GITHUB_WORKSPACE
@@ -25,16 +33,13 @@ jobs:
         run: sudo luarocks install moonscript
 
       - name: Build Lua
-        run: moonc -t lua moon/*
+        run: moonc .
 
       - name: Remove moon
-        run: rm -rf moon
+        run: rm **/*.moon
 
       - name: Remove github dir
-        run: rm -rf .github
-
-      - name: Remove .gitignore
-        run: rm -rf .gitignore
+        run: rm -rf .github .gitignore
 
       - name: Create VERSION file
         run: versionStr=${{ github.ref }};echo -e v${versionStr#*v} > VERSION
@@ -51,12 +56,15 @@ jobs:
         run: rm -rf .git
 
       - name: Create subdirectory
+        if: ${{ inputs.release-assets }} == "true"
         run: mkdir ${{ github.event.repository.name }}
 
       - name: Move files into sub directory
+        if: ${{ inputs.release-assets }} == "true"
         run: ls | grep -v ${{ github.event.repository.name }} | xargs mv -t ${{ github.event.repository.name }}
 
       - name: Create Release Asset
+        if: ${{ inputs.release-assets }} == "true"
         run: zip -r9 ${{ github.event.repository.name }}.zip .
 
       - name: Publish Release
@@ -73,6 +81,7 @@ jobs:
 
       - name: Upload Release Asset
         id: upload-release-asset
+        if: ${{ inputs.release-assets }} == "true"
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -82,3 +91,5 @@ jobs:
           asset_name: ${{ github.event.repository.name }}.zip
           asset_content_type: application/zip
 
+      - name: Output Release URL
+        run: echo "::set-output name=releaseurl::${{ steps.create_release.outputs.upload_url }}"

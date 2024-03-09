@@ -1,8 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_rotary_messages'
-  projectBranch: 'main'
-  projectWorkflow: moonscript_release
-  reviewers: |
-    brandonsturgeon
-
-name: 'CFC Rotary Messages | Moonscript Release'

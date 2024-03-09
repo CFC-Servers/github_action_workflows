@@ -1,9 +1,0 @@
-env:
-  projectUrl: 'CFC-Servers/cfc_nanny_lambda_functions'
-  projectBranch: 'main'
-  projectWorkflow: lint_python
-  reviewers: |
-    brandonsturgeon
-    plally
-
-name: 'CFC Nanny | Lint Python'

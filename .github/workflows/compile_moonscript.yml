@@ -1,0 +1,23 @@
+name: Compile Moonscript
+
+on:
+  workflow_call:
+
+jobs:
+  compile-moonscript:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update apt
+        run: sudo apt-get update -y
+
+      - name: Install LuaRocks
+        run: sudo apt-get install -y luarocks
+
+      - name: Install Moonscript
+        run: sudo luarocks install moonscript
+
+      - name: Build Lua
+        run: moonc $GITHUB_WORKSPACE

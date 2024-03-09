@@ -1,0 +1,67 @@
+name: Lint Moonscript
+
+on:
+  workflow_call:
+    inputs:
+      config:
+        type: string
+        required: false
+        default: ""
+        description: "A URL or path (relative to your project root) of the moonc lint config"
+
+jobs:
+  lint-moonscript:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: project
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y python3-pygments luarocks
+
+      - name: Install Moonscript
+        run: sudo luarocks install moonscript
+
+      - name: Get config file
+        run: |
+          MOONLINT_PATH=${{ inputs.config }}
+          if [[ "$MOONLINT_PATH" == "" ]];
+          then
+              echo "::warn:: No lint config provided. Using defaults."
+          else
+            if [[ "$MOONLINT_PATH" == http* ]];
+            then
+                echo "::info:: Given remote lint config path. Downloading..."
+                curl -vL "$MOONLINT_PATH" > "$GITHUB_WORKSPACE/lint_config.moon"
+            else
+                echo "::info:: Given local path to lint config. Copying..."
+                cp -v "$GITHUB_WORKSPACE/project/$MOONLINT_PATH" "$GITHUB_WORKSPACE/lint_config.moon"
+            fi
+          fi
+
+      - name: CD into project
+        run: cd $GITHUB_WORKSPACE
+
+      - name: Build config
+        run: moonc lint_config.moon && rm lint_config.moon
+
+      - name: Run Linter
+        run: moonc -l . &> lint_output.txt || true
+
+      - name: Format linter output
+        run: |
+          output=$(cat lint_output.txt);
+          if [ -z "$output" ]; then
+            exit 0
+          else
+            exc=$(printf '\u001b');
+            echo "$output" |
+            sed -E "s,^(line.*),${exc}[31m\1${exc}[0m," |
+            sed -E 's,(\\),\\\\,' |
+            sed -E "s,^>(.*),echo \">\1\" | pygmentize -O full\,style=friendly -l moon -f 256,e" &&
+            exit 1
+          fi
